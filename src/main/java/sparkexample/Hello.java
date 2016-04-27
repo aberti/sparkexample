@@ -1,5 +1,6 @@
 package sparkexample;
 
+import org.apache.log4j.Logger;
 import redis.clients.jedis.Jedis;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import static spark.Spark.get;
 
 public class Hello {
 
+    static final Logger LOGGER = Logger.getLogger(Hello.class.getName());
 
     static final String REDIS_ADDR = "redis";
     static final int REDIS_PORT = 6379;
@@ -54,8 +56,11 @@ public class Hello {
             if (counter == null) {
                 counter = "1";
             }
+            String c = jedis.incr("counter").toString();
+            LOGGER.info(c);
             return jedis.incr("counter").toString();
         } else {
+            LOGGER.error("NO REDIS");
             return "---NO REDIS---";
         }
     }
