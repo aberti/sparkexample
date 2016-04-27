@@ -9,7 +9,7 @@ public class Hello {
     public static void main(String[] args) {
 
         get("/", (req, res) -> {
-            return "hello world";
+            return "hello world - 2";
         });
 
         get("/envs", (req, res) -> {
