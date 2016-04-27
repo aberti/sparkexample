@@ -9,17 +9,17 @@ public class Hello {
     public static void main(String[] args) {
 
         get("/", (req, res) -> {
-            return "hello world - 2";
+            return "hello world - 4";
         });
 
         get("/envs", (req, res) -> {
-            StringBuilder buf = new StringBuilder();
             Map<String, String> env = System.getenv();
-            for (String envName : env.keySet()) {
-                buf.append(envName + " : " + env.get(envName) + "<br/>");
-            }
-            return buf.toString();
+            if (env.containsKey("HOSTNAME"))
+                return env.get("HOSTNAME");
+            else
+                return "brak env HOSTNAME";
         });
+
     }
 
 }
