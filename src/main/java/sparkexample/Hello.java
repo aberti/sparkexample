@@ -25,17 +25,24 @@ public class Hello {
     public static void main(String[] args) {
 
         get("/", (req, res) -> {
-            return "hello world (called: " + getCounter() + " times )";
+            StringBuilder out = new StringBuilder();
+            out.append("host: ");
+            out.append(getHostName());
+            out.append("<br/>");
+            out.append("hello world (called: ");
+            out.append( getCounter() );
+            out.append(" times )");
+            return out.toString();
         });
 
-        get("/envs", (req, res) -> {
-            Map<String, String> env = System.getenv();
-            if (env.containsKey("HOSTNAME"))
-                return env.get("HOSTNAME");
-            else
-                return "brak env HOSTNAME";
-        });
+    }
 
+    static String getHostName(){
+        Map<String, String> env = System.getenv();
+        if (env.containsKey("HOSTNAME"))
+            return env.get("HOSTNAME");
+        else
+            return "brak env HOSTNAME";
     }
 
     static void conectToRedis() {
@@ -58,7 +65,7 @@ public class Hello {
             }
             String c = jedis.incr("counter").toString();
             LOGGER.info(c);
-            return jedis.incr("counter").toString();
+            return c;
         } else {
             LOGGER.error("NO REDIS");
             return "---NO REDIS---";
