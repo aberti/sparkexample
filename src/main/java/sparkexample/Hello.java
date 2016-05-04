@@ -29,7 +29,7 @@ public class Hello {
             out.append("host: ");
             out.append(getHostName());
             out.append("<br/>");
-            out.append("hello world (called more than: ");
+            out.append("hello world  asdf (called more than: ");
             out.append( getCounter() );
             out.append(" times )");
             return out.toString();
